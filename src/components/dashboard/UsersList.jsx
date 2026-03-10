@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getUsers } from "../../storage/storage";
-import "./Dashboard.css";
+import "./dashboard.css";
 
 function UsersList() {
   const [users, setUsers] = useState([]);
