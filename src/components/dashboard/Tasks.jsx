@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getInterns } from "../../storage/storage"; 
-import "./Dashboard.css";
+import "./dashboard.css";
 
 function Tasks({ readOnly = false, filterByUser = null }) {
   const [interns, setInterns] = useState([]);
