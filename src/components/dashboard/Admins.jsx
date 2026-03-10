@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
-import "./Dashboard.css";
+import "./dashboard.css";
 
 function Admins() {
   const [currentPage, setCurrentPage] = useState(1);
