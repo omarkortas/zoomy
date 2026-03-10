@@ -1,0 +1,93 @@
+.container_code {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 35px auto;
+  width: 100%;
+  max-width: 500px; 
+  padding: 20px;
+  background: transparent;
+}
+
+.header_code {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 9px;
+}
+
+.container_code .logo {
+  height: 150px;
+  width: auto;
+  display: block;
+  margin: 10px;
+}
+
+.inputs_code {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%; 
+}
+
+.input_code {
+  display: flex;
+  align-items: center;
+  width: 100%; 
+  height: 50px;
+  background-color: transparent;
+  border: 2px solid white;
+  border-radius: 3px;
+  padding: 0 10px; 
+  box-sizing: border-box; 
+}
+
+.icon {
+  margin-right: 15px;
+  color: white;
+}
+
+.input_code input {
+  flex: 1; 
+  height: 35px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  font-size: 18px;
+}
+
+.submit_button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%; 
+  max-width: 450px;
+  height: 50px;
+  color: black;
+  background-color: white;
+  border-radius: 5px;
+  font-size: 20px;
+  cursor: pointer;
+  margin: 0 auto;
+}
+
+@media (max-width: 480px) {
+  .container_code .logo {
+    height: 100px; 
+  }
+
+  .input_code {
+    height: 45px;
+  }
+
+  .input_code input {
+    font-size: 16px;
+  }
+
+  .submit_button {
+    height: 45px;
+    font-size: 18px;
+  }
+}

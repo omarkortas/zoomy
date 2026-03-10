@@ -1,0 +1,137 @@
+html, body {
+  width: 100%;
+  min-width: 1500px; 
+  margin: 0;
+  padding: 0;
+}
+.publications-container {
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.title_li {
+  color: #333;
+  text-align: center;
+  font-size: 25px;
+}
+
+.title{
+    font-size: 25px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: rgb(57, 114, 220);
+}
+.pub button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  margin: 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.pub button:hover {
+  background-color: #0056b3;
+}
+
+.publication-list{
+ display: flex;
+ flex-wrap: wrap;
+ gap: 10px;
+ width: 100%;
+}
+
+.publication-item{
+  background-color: #f8f8f8;
+  padding: 10px;
+  border-radius: 10px;
+  width: 28%; 
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+.buttons{
+  display: flex;
+  justify-content: center;
+}
+.pub li h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #222;
+}
+
+.publication-type {
+  margin: 0;
+  font-size: 22px;
+  color: #555;
+}
+
+.pub li button {
+  width: 80px;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.pub li button:first-of-type {
+  background-color: #1b742f; 
+}
+
+.pub li button:last-of-type {
+  background-color: #dc3545; 
+}
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 100%;
+}
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 100%;
+}
+@media (max-width: 768px) {
+.publication-list{
+  display: flex;
+  flex-direction: column;
+  width: 800px;
+}
+.buttons{
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+}
