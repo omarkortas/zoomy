@@ -39,6 +39,8 @@ function Internship() {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Epilogue:wght@300;400;500&display=swap');
 
+        *, *::before, *::after { box-sizing: border-box; }
+
         .int-section {
           background: #f7f5f2;
           padding: 120px 10vw 100px;
@@ -80,6 +82,7 @@ function Internship() {
           letter-spacing: 1px;
           align-self: flex-end;
           padding-bottom: 6px;
+          white-space: nowrap;
         }
 
         .int-divider {
@@ -129,7 +132,6 @@ function Internship() {
           padding-top: 4px;
         }
 
-        /* Badge — couleur selon type */
         .int-badge {
           display: inline-block;
           font-size: 0.62rem;
@@ -199,10 +201,109 @@ function Internship() {
         .int-cta:hover .int-arrow { transform: translateX(4px); }
         .int-arrow { display: inline-block; transition: transform 0.2s; }
 
-        @media (max-width: 768px) {
-          .int-section { padding: 90px 6vw 60px; }
-          .int-card { grid-template-columns: 1fr; gap: 24px; }
-          .int-card-right { align-items: flex-start; }
+        /* =====================
+           TABLET (max 900px)
+        ===================== */
+        @media (max-width: 900px) {
+          .int-section {
+            padding: 90px 6vw 60px;
+          }
+          .int-header {
+            margin-bottom: 52px;
+            gap: 24px;
+          }
+          .int-card {
+            padding: 36px 28px;
+            gap: 0 28px;
+          }
+          .int-card-subtitle {
+            max-width: 100%;
+          }
+        }
+
+        /* =====================
+           MOBILE (max 600px)
+        ===================== */
+        @media (max-width: 600px) {
+          .int-section {
+            padding: 80px 5vw 56px;
+          }
+
+          /* Header */
+          .int-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 36px;
+          }
+          .int-title {
+            font-size: clamp(2rem, 9vw, 2.8rem);
+            letter-spacing: -0.5px;
+          }
+          .int-count {
+            align-self: flex-start;
+            padding-bottom: 0;
+          }
+
+          /* Card — empilement vertical */
+          .int-card {
+            grid-template-columns: 1fr;
+            gap: 0;
+            padding: 28px 20px;
+          }
+          .int-card-left {
+            grid-column: 1;
+          }
+          .int-card-right {
+            grid-column: 1;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 24px;
+          }
+
+          /* Numéro visible à gauche, bouton à droite */
+          .int-number {
+            font-size: 0.7rem;
+            color: #bbb;
+          }
+
+          /* Bouton pleine largeur si très petit */
+          .int-cta {
+            padding: 12px 20px;
+            font-size: 0.68rem;
+            letter-spacing: 1.5px;
+          }
+
+          .int-card-title {
+            font-size: clamp(1.1rem, 5vw, 1.4rem);
+            margin-bottom: 10px;
+          }
+          .int-card-subtitle {
+            font-size: 0.84rem;
+            line-height: 1.7;
+          }
+          .int-badge {
+            margin-bottom: 14px;
+          }
+        }
+
+        /* =====================
+           TRÈS PETIT (max 360px)
+        ===================== */
+        @media (max-width: 360px) {
+          .int-section {
+            padding: 72px 4vw 48px;
+          }
+          .int-card-right {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 12px;
+          }
+          .int-cta {
+            width: 100%;
+            justify-content: center;
+          }
         }
       `}</style>
 

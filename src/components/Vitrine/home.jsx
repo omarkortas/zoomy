@@ -8,39 +8,24 @@ const BG_SVG = `
       <stop offset="100%" stop-color="#f7f5f2" stop-opacity="0"/>
     </radialGradient>
   </defs>
-
   <rect width="800" height="700" fill="url(#glow)"/>
-
-  <!-- Outer hexagon -->
   <polygon points="400,60 620,190 620,450 400,580 180,450 180,190"
     fill="none" stroke="#999" stroke-width="1" opacity="0.2"/>
-
-  <!-- Middle hexagon -->
   <polygon points="400,130 560,225 560,415 400,510 240,415 240,225"
     fill="none" stroke="#aaa" stroke-width="0.8" opacity="0.15"/>
-
-  <!-- Inner hexagon -->
   <polygon points="400,200 500,257 500,375 400,432 300,375 300,257"
     fill="none" stroke="#bbb" stroke-width="0.6" opacity="0.12"/>
-
-  <!-- Vertical & diagonal structural lines -->
   <line x1="400" y1="60" x2="400" y2="580" stroke="#888" stroke-width="0.7" opacity="0.12"/>
   <line x1="180" y1="190" x2="620" y2="450" stroke="#888" stroke-width="0.7" opacity="0.1"/>
   <line x1="620" y1="190" x2="180" y2="450" stroke="#888" stroke-width="0.7" opacity="0.1"/>
-
-  <!-- Perspective grid lines from center -->
   <line x1="400" y1="320" x2="0"   y2="0"   stroke="#777" stroke-width="0.5" opacity="0.07"/>
   <line x1="400" y1="320" x2="800" y2="0"   stroke="#777" stroke-width="0.5" opacity="0.07"/>
   <line x1="400" y1="320" x2="800" y2="700" stroke="#777" stroke-width="0.5" opacity="0.07"/>
   <line x1="400" y1="320" x2="0"   y2="700" stroke="#777" stroke-width="0.5" opacity="0.07"/>
-
-  <!-- Concentric circles -->
   <circle cx="400" cy="320" r="100" fill="none" stroke="#999" stroke-width="0.6" opacity="0.1"/>
   <circle cx="400" cy="320" r="170" fill="none" stroke="#999" stroke-width="0.6" opacity="0.08"/>
   <circle cx="400" cy="320" r="240" fill="none" stroke="#999" stroke-width="0.5" opacity="0.06"/>
   <circle cx="400" cy="320" r="320" fill="none" stroke="#999" stroke-width="0.5" opacity="0.04"/>
-
-  <!-- Corner accent dots -->
   <circle cx="400" cy="60"  r="4" fill="#aaa" opacity="0.2"/>
   <circle cx="620" cy="190" r="4" fill="#aaa" opacity="0.2"/>
   <circle cx="620" cy="450" r="4" fill="#aaa" opacity="0.2"/>
@@ -48,8 +33,6 @@ const BG_SVG = `
   <circle cx="180" cy="450" r="4" fill="#aaa" opacity="0.2"/>
   <circle cx="180" cy="190" r="4" fill="#aaa" opacity="0.2"/>
   <circle cx="400" cy="320" r="6" fill="#999" opacity="0.25"/>
-
-  <!-- Small floating squares (3D illusion) -->
   <rect x="370" y="290" width="60" height="60"
     fill="none" stroke="#888" stroke-width="0.8" opacity="0.12"
     transform="rotate(15 400 320)"/>
@@ -94,7 +77,7 @@ function Home() {
           background-repeat: no-repeat;
         }
 
-        /* Gradient mask — texte lisible à gauche, image visible à droite */
+        /* Gradient mask */
         .hero-mask {
           position: absolute;
           inset: 0;
@@ -206,10 +189,100 @@ function Home() {
           to   { width: 40px; opacity: 1; }
         }
 
-        @media (max-width: 768px) {
-          .hero { padding: 90px 8vw 60px; }
-          .hero-bg { background-size: 100%; background-position: 50% 110%; opacity: 0.5; }
+        /* =====================
+           TABLET (max 900px)
+        ===================== */
+        @media (max-width: 900px) {
+          .hero {
+            padding: 100px 8vw 60px;
+          }
+          .hero-bg {
+            background-size: 80%;
+            background-position: 100% 60%;
+            opacity: 0.6;
+          }
+          .hero-mask {
+            background: linear-gradient(
+              to right,
+              #f7f5f2 0%,
+              #f7f5f2 30%,
+              rgba(247,245,242,0.75) 60%,
+              rgba(247,245,242,0.1) 100%
+            );
+          }
+        }
+
+        /* =====================
+           MOBILE (max 600px)
+        ===================== */
+        @media (max-width: 600px) {
+          .hero {
+            padding: 110px 6vw 60px;
+            justify-content: flex-start;
+          }
+
+          /* SVG en fond centré, très atténué */
+          .hero-bg {
+            background-size: 140%;
+            background-position: 50% 80%;
+            opacity: 0.35;
+          }
+
+          /* Masque full opaque pour lisibilité */
+          .hero-mask {
+            background: linear-gradient(
+              to bottom,
+              rgba(247,245,242,0.92) 0%,
+              rgba(247,245,242,0.75) 100%
+            );
+          }
+
+          /* Ligne décorative cachée */
           .hero::after { display: none; }
+
+          .hero-label {
+            font-size: 0.62rem;
+            letter-spacing: 2.5px;
+            margin-bottom: 24px;
+          }
+
+          .hero-title {
+            font-size: clamp(2.6rem, 11vw, 3.4rem);
+            letter-spacing: -1px;
+            margin-bottom: 28px;
+            line-height: 1.08;
+          }
+
+          .hero-line {
+            margin-bottom: 20px;
+          }
+
+          .hero-desc {
+            font-size: 0.9rem;
+            max-width: 100%;
+            margin-bottom: 40px;
+            line-height: 1.75;
+          }
+
+          /* Bouton pleine largeur sur mobile */
+          .hero-cta {
+            align-self: stretch;
+            justify-content: center;
+            padding: 16px 24px;
+            font-size: 0.7rem;
+          }
+        }
+
+        /* =====================
+           TRÈS PETIT (max 360px)
+        ===================== */
+        @media (max-width: 360px) {
+          .hero {
+            padding: 100px 5vw 48px;
+          }
+          .hero-title {
+            font-size: 2.3rem;
+          }
         }
       `}</style>
 

@@ -45,7 +45,7 @@ function Projects() {
           font-family: 'Epilogue', sans-serif;
         }
 
-        /* Header */
+        /* ─── Header ─── */
         .pj-header {
           display: flex;
           align-items: flex-end;
@@ -82,7 +82,7 @@ function Projects() {
           line-height: 1.8;
         }
 
-        /* Divider */
+        /* ─── Divider ─── */
         .pj-divider {
           width: 100%;
           height: 1px;
@@ -90,14 +90,14 @@ function Projects() {
           margin-bottom: 0;
         }
 
-        /* Grid */
+        /* ─── Grid — desktop: 3 cols ─── */
         .pj-grid {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
           border-left: 1px solid rgba(255,255,255,0.07);
         }
 
-        /* Card */
+        /* ─── Card ─── */
         .pj-card {
           border-right: 1px solid rgba(255,255,255,0.07);
           border-bottom: 1px solid rgba(255,255,255,0.07);
@@ -204,13 +204,94 @@ function Projects() {
         }
         .pj-card:hover .pj-link-arrow { transform: translateX(5px); }
 
+        /* ─── Tablet: 2 cols ─── */
         @media (max-width: 900px) {
-          .pj-grid { grid-template-columns: 1fr; }
-          .pj-section { padding: 90px 6vw 60px; }
+          .pj-section {
+            padding: 80px 6vw 60px;
+          }
+          .pj-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+          .pj-header {
+            margin-bottom: 56px;
+            gap: 24px;
+          }
+        }
+
+        /* ─── Mobile: 1 col horizontal scroll cards ─── */
+        @media (max-width: 600px) {
+          .pj-section {
+            padding: 72px 0 60px;
+          }
+
+          /* Header with side padding */
+          .pj-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 40px;
+            padding: 0 6vw;
+          }
+          .pj-header-desc {
+            max-width: 100%;
+            font-size: 0.84rem;
+          }
+          .pj-title {
+            font-size: clamp(2rem, 9vw, 2.8rem);
+          }
+
+          .pj-divider {
+            margin: 0 6vw;
+            width: calc(100% - 12vw);
+          }
+
+          /* Horizontal scroll strip */
+          .pj-grid {
+            display: flex;
+            flex-direction: row;
+            overflow-x: auto;
+            overflow-y: visible;
+            border-left: none;
+            gap: 0;
+            padding: 32px 6vw 40px;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+          }
+          .pj-grid::-webkit-scrollbar { display: none; }
+
+          /* Each card as a snapping slide */
+          .pj-card {
+            flex: 0 0 80vw;
+            min-width: 80vw;
+            scroll-snap-align: start;
+            border: 1px solid rgba(255,255,255,0.07);
+            padding: 36px 28px 32px;
+            margin-right: 16px;
+          }
+          .pj-card:last-child { margin-right: 0; }
+
+          /* Scroll indicator dots */
+          .pj-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            padding-bottom: 8px;
+          }
+          .pj-dot {
+            width: 20px;
+            height: 1px;
+            background: rgba(255,255,255,0.15);
+            transition: background 0.3s, width 0.3s;
+          }
+          .pj-dot.active {
+            background: #f0ede8;
+            width: 32px;
+          }
         }
       `}</style>
 
-      <section className="pj-section">
+      <section className="pj-section" id="projects">
         {/* Header */}
         <div className="pj-header">
           <div>
@@ -228,7 +309,7 @@ function Projects() {
         <div className="pj-divider" />
 
         {/* Grid */}
-        <div className="pj-grid">
+        <div className="pj-grid" id="pj-grid">
           {projects.map((p) => (
             <div className="pj-card" key={p.id}>
               <span className="pj-num">{p.id}</span>
@@ -254,8 +335,35 @@ function Projects() {
             </div>
           ))}
         </div>
+
+        {/* Scroll dots — mobile only */}
+        <ScrollDots count={projects.length} gridId="pj-grid" />
       </section>
     </>
+  );
+}
+
+/* ── Dots indicator (visible mobile only) ── */
+function ScrollDots({ count, gridId }) {
+  const [active, setActive] = React.useState(0);
+
+  React.useEffect(() => {
+    const el = document.getElementById(gridId);
+    if (!el) return;
+    const onScroll = () => {
+      const cardWidth = el.scrollWidth / count;
+      setActive(Math.round(el.scrollLeft / cardWidth));
+    };
+    el.addEventListener("scroll", onScroll, { passive: true });
+    return () => el.removeEventListener("scroll", onScroll);
+  }, [count, gridId]);
+
+  return (
+    <div className="pj-dots">
+      {Array.from({ length: count }).map((_, i) => (
+        <div key={i} className={`pj-dot ${i === active ? "active" : ""}`} />
+      ))}
+    </div>
   );
 }
 

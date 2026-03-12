@@ -9,7 +9,6 @@ function Contact() {
 
   const submit = (e) => {
     e.preventDefault();
-    // Remplace par ta logique d'envoi (API, EmailJS, etc.)
     setSent(true);
     setTimeout(() => setSent(false), 4000);
     setForm({ name: "", email: "", subject: "", message: "" });
@@ -19,6 +18,8 @@ function Contact() {
     <>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Epilogue:wght@300;400;500&display=swap');
+
+        * { box-sizing: border-box; }
 
         .ct-section {
           background: #f7f5f2;
@@ -144,9 +145,6 @@ function Contact() {
           padding: 20px 0;
           position: relative;
         }
-        .ct-field:not(:last-child) {
-          border-right: none;
-        }
         .ct-row .ct-field:first-child {
           border-right: 1px solid rgba(0,0,0,0.08);
           padding-right: 28px;
@@ -174,6 +172,7 @@ function Contact() {
           color: #111;
           resize: none;
           padding: 0;
+          width: 100%;
         }
         .ct-field input::placeholder,
         .ct-field textarea::placeholder { color: #999; }
@@ -233,17 +232,122 @@ function Contact() {
         }
         .ct-success.visible { opacity: 1; }
 
+        /* =====================
+           TABLET (max 900px)
+        ===================== */
         @media (max-width: 900px) {
-          .ct-body { grid-template-columns: 1fr; }
-          .ct-section { padding: 90px 6vw 60px; }
-          .ct-header { flex-direction: column; align-items: flex-start; }
+          .ct-section {
+            padding: 80px 6vw 60px;
+          }
+          .ct-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 24px;
+            margin-bottom: 50px;
+          }
+          .ct-header-desc {
+            max-width: 100%;
+          }
+          .ct-body {
+            grid-template-columns: 1fr;
+            border-left: none;
+          }
+          .ct-info {
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 32px;
+            border-right: none;
+            border-left: 1px solid rgba(0,0,0,0.08);
+            padding: 36px 28px;
+          }
+          .ct-info-block {
+            min-width: 140px;
+            flex: 1;
+          }
+          .ct-form-wrap {
+            border-right: none;
+            border-left: 1px solid rgba(0,0,0,0.08);
+            padding: 36px 28px;
+          }
         }
+
+        /* =====================
+           MOBILE (max 540px)
+        ===================== */
         @media (max-width: 540px) {
-          .ct-row { grid-template-columns: 1fr; }
-          .ct-row .ct-field:first-child { border-right: none; padding-right: 0; }
-          .ct-row .ct-field:last-child { padding-left: 0; }
-          .ct-form-wrap { padding: 36px 28px; }
-          .ct-info { padding: 36px 28px; }
+          .ct-section {
+            padding: 60px 5vw 50px;
+          }
+          .ct-title {
+            font-size: 2.2rem;
+            letter-spacing: -0.5px;
+          }
+          .ct-header {
+            margin-bottom: 36px;
+            gap: 16px;
+          }
+          .ct-header-desc {
+            font-size: 0.84rem;
+          }
+
+          /* Info — empilement vertical sur mobile */
+          .ct-info {
+            flex-direction: column;
+            gap: 28px;
+            padding: 28px 20px;
+            border-top: 1px solid rgba(0,0,0,0.08);
+          }
+          .ct-info-block {
+            min-width: unset;
+          }
+
+          /* Form */
+          .ct-form-wrap {
+            padding: 28px 20px;
+          }
+          .ct-row {
+            grid-template-columns: 1fr;
+          }
+          .ct-row .ct-field:first-child {
+            border-right: none;
+            padding-right: 0;
+          }
+          .ct-row .ct-field:last-child {
+            padding-left: 0;
+          }
+
+          /* Submit full width */
+          .ct-submit-row {
+            flex-direction: column;
+            align-items: stretch;
+            padding-top: 28px;
+            gap: 16px;
+          }
+          .ct-submit {
+            width: 100%;
+            justify-content: center;
+            padding: 16px 24px;
+          }
+          .ct-success {
+            text-align: center;
+          }
+
+          /* Textarea un peu plus haute sur mobile */
+          .ct-field textarea {
+            min-height: 120px;
+          }
+        }
+
+        /* =====================
+           TRÈS PETIT (max 360px)
+        ===================== */
+        @media (max-width: 360px) {
+          .ct-title {
+            font-size: 1.9rem;
+          }
+          .ct-section {
+            padding: 48px 4vw 40px;
+          }
         }
       `}</style>
 

@@ -12,6 +12,8 @@ function Footer() {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Epilogue:wght@300;400;500&display=swap');
 
+        * { box-sizing: border-box; }
+
         .ft {
           background: #111;
           color: #f0ede8;
@@ -86,6 +88,8 @@ function Footer() {
           text-decoration: none;
           transition: color 0.2s;
           display: inline-block;
+          /* Zone de tap confortable sur mobile */
+          padding: 2px 0;
         }
         .ft-col-links a:hover { color: #f0ede8; }
 
@@ -114,6 +118,7 @@ function Footer() {
           font-weight: 300;
           color: #f0ede8;
           padding: 4px 0;
+          min-width: 0; /* évite le débordement flex */
         }
         .ft-input::placeholder { color: #333; }
         .ft-submit {
@@ -126,6 +131,7 @@ function Footer() {
           align-items: center;
           transition: color 0.2s;
           padding: 0;
+          flex-shrink: 0;
         }
         .ft-submit:hover { color: #f0ede8; }
 
@@ -149,6 +155,7 @@ function Footer() {
           gap: 28px;
           list-style: none;
           padding: 0; margin: 0;
+          flex-wrap: wrap;
         }
         .ft-bottom-links a {
           font-size: 0.7rem;
@@ -156,16 +163,98 @@ function Footer() {
           text-decoration: none;
           transition: color 0.2s;
           letter-spacing: 0.5px;
+          /* Zone de tap confortable */
+          padding: 4px 0;
+          display: inline-block;
         }
         .ft-bottom-links a:hover { color: #666; }
 
+        /* =====================
+           TABLET (max 900px)
+        ===================== */
         @media (max-width: 900px) {
-          .ft-top { grid-template-columns: 1fr 1fr; gap: 40px; }
+          .ft {
+            padding: 60px 6vw 36px;
+          }
+          .ft-top {
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            padding-bottom: 48px;
+          }
+          .ft-brand-desc {
+            max-width: 100%;
+          }
         }
+
+        /* =====================
+           MOBILE (max 540px)
+        ===================== */
         @media (max-width: 540px) {
-          .ft { padding: 60px 6vw 32px; }
-          .ft-top { grid-template-columns: 1fr; gap: 36px; }
-          .ft-bottom { flex-direction: column; align-items: flex-start; }
+          .ft {
+            padding: 48px 5vw 28px;
+          }
+          .ft-top {
+            grid-template-columns: 1fr;
+            gap: 36px;
+            padding-bottom: 40px;
+          }
+
+          /* Brand */
+          .ft-brand-name {
+            font-size: 1.4rem;
+          }
+          .ft-brand-desc {
+            max-width: 100%;
+            margin-bottom: 20px;
+          }
+          .ft-socials {
+            gap: 22px; /* icônes plus espacées pour le touch */
+          }
+          .ft-socials a {
+            font-size: 1.1rem;
+          }
+
+          /* Liens nav — 2 colonnes côte à côte */
+          .ft-nav-cols {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 36px;
+          }
+
+          /* Newsletter pleine largeur */
+          .ft-form {
+            padding-bottom: 12px;
+          }
+          .ft-input {
+            font-size: 0.85rem;
+          }
+          .ft-submit {
+            font-size: 0.9rem;
+            padding: 4px 0 4px 8px;
+          }
+
+          /* Bottom */
+          .ft-bottom {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 12px;
+            padding-top: 24px;
+          }
+          .ft-bottom-links {
+            gap: 20px;
+          }
+        }
+
+        /* =====================
+           TRÈS PETIT (max 360px)
+        ===================== */
+        @media (max-width: 360px) {
+          .ft-nav-cols {
+            grid-template-columns: 1fr;
+          }
+          .ft {
+            padding: 40px 4vw 24px;
+          }
         }
       `}</style>
 
@@ -186,26 +275,27 @@ function Footer() {
             </ul>
           </div>
 
-          {/* Company */}
-          <div>
-            <p className="ft-col-title">Company</p>
-            <ul className="ft-col-links">
-              <li><a href="#">About us</a></li>
-              <li><a href="#">Blog</a></li>
-              <li><a href="#">Contact</a></li>
-              <li><a href="#">Pricing</a></li>
-            </ul>
-          </div>
+          {/* Company + Support regroupés en 2 colonnes sur mobile */}
+          <div className="ft-nav-cols">
+            <div>
+              <p className="ft-col-title">Company</p>
+              <ul className="ft-col-links">
+                <li><a href="#">About us</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="#">Pricing</a></li>
+              </ul>
+            </div>
 
-          {/* Support */}
-          <div>
-            <p className="ft-col-title">Support</p>
-            <ul className="ft-col-links">
-              <li><a href="#">Help center</a></li>
-              <li><a href="#">Terms of service</a></li>
-              <li><a href="#">Legal</a></li>
-              <li><a href="#">Privacy policy</a></li>
-            </ul>
+            <div>
+              <p className="ft-col-title">Support</p>
+              <ul className="ft-col-links">
+                <li><a href="#">Help center</a></li>
+                <li><a href="#">Terms of service</a></li>
+                <li><a href="#">Legal</a></li>
+                <li><a href="#">Privacy policy</a></li>
+              </ul>
+            </div>
           </div>
 
           {/* Newsletter */}

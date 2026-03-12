@@ -1,4 +1,5 @@
 import { FaServer, FaShieldAlt, FaCloud, FaCode, FaChartBar, FaHeadset } from "react-icons/fa";
+import React from "react";
 
 const services = [
   {
@@ -51,7 +52,7 @@ function Services() {
           font-family: 'Epilogue', sans-serif;
         }
 
-        /* Header */
+        /* ─── Header ─── */
         .sv-header {
           display: flex;
           align-items: flex-end;
@@ -59,6 +60,13 @@ function Services() {
           gap: 40px;
           margin-bottom: 80px;
           flex-wrap: wrap;
+        }
+        .sv-label {
+          font-size: 0.68rem;
+          letter-spacing: 3.5px;
+          text-transform: uppercase;
+          color: #666;
+          margin-bottom: 20px;
         }
         .sv-title {
           font-family: 'Playfair Display', serif;
@@ -81,7 +89,7 @@ function Services() {
           line-height: 1.8;
         }
 
-        /* Divider */
+        /* ─── Divider ─── */
         .sv-divider {
           width: 100%;
           height: 1px;
@@ -89,14 +97,14 @@ function Services() {
           margin-bottom: 0;
         }
 
-        /* Grid 3x2 */
+        /* ─── Grid 3×2 desktop ─── */
         .sv-grid {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
           border-left: 1px solid rgba(255,255,255,0.07);
         }
 
-        /* Card */
+        /* ─── Card ─── */
         .sv-card {
           border-right: 1px solid rgba(255,255,255,0.07);
           border-bottom: 1px solid rgba(255,255,255,0.07);
@@ -161,25 +169,92 @@ function Services() {
         }
         .sv-card:hover .sv-card-desc { color: #bbb; }
 
-        .sv-label {
-          font-size: 0.68rem;
-          letter-spacing: 3.5px;
-          text-transform: uppercase;
-          color: #666;
-          margin-bottom: 20px;
+        /* ─── Tablet: 2 cols ─── */
+        @media (max-width: 900px) {
+          .sv-section {
+            padding: 80px 6vw 60px;
+          }
+          .sv-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+          .sv-header {
+            margin-bottom: 56px;
+            gap: 24px;
+          }
         }
 
-        @media (max-width: 900px) {
-          .sv-grid { grid-template-columns: repeat(2, 1fr); }
-          .sv-section { padding: 90px 6vw 60px; }
-        }
-        @media (max-width: 540px) {
-          .sv-grid { grid-template-columns: 1fr; }
-          .sv-header { flex-direction: column; align-items: flex-start; }
+        /* ─── Mobile: horizontal scroll carousel ─── */
+        @media (max-width: 600px) {
+          .sv-section {
+            padding: 72px 0 60px;
+          }
+
+          .sv-header {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 40px;
+            padding: 0 6vw;
+          }
+          .sv-header-desc {
+            max-width: 100%;
+            font-size: 0.84rem;
+          }
+          .sv-title {
+            font-size: clamp(2rem, 9vw, 2.8rem);
+          }
+
+          .sv-divider {
+            margin: 0 6vw;
+            width: calc(100% - 12vw);
+          }
+
+          /* Horizontal scroll strip */
+          .sv-grid {
+            display: flex;
+            flex-direction: row;
+            overflow-x: auto;
+            border-left: none;
+            gap: 0;
+            padding: 32px 6vw 40px;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+          }
+          .sv-grid::-webkit-scrollbar { display: none; }
+
+          /* Each card as snapping slide */
+          .sv-card {
+            flex: 0 0 72vw;
+            min-width: 72vw;
+            scroll-snap-align: start;
+            border: 1px solid rgba(255,255,255,0.07);
+            padding: 32px 24px 28px;
+            margin-right: 14px;
+          }
+          .sv-card:last-child { margin-right: 0; }
+
+          /* Scroll indicator dots */
+          .sv-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            padding-bottom: 8px;
+          }
+          .sv-dot {
+            width: 20px;
+            height: 1px;
+            background: rgba(255,255,255,0.15);
+            transition: background 0.3s, width 0.3s;
+          }
+          .sv-dot.active {
+            background: #f0ede8;
+            width: 32px;
+          }
         }
       `}</style>
 
-      <section className="sv-section">
+      <section className="sv-section" id="services">
         {/* Header */}
         <div className="sv-header">
           <div>
@@ -197,7 +272,7 @@ function Services() {
         <div className="sv-divider" />
 
         {/* Grid */}
-        <div className="sv-grid">
+        <div className="sv-grid" id="sv-grid">
           {services.map((s) => (
             <div className="sv-card" key={s.id}>
               <span className="sv-num">{s.id}</span>
@@ -207,8 +282,35 @@ function Services() {
             </div>
           ))}
         </div>
+
+        {/* Scroll dots — mobile only */}
+        <ScrollDots count={services.length} gridId="sv-grid" />
       </section>
     </>
+  );
+}
+
+/* ── Dots indicator (visible mobile only via CSS) ── */
+function ScrollDots({ count, gridId }) {
+  const [active, setActive] = React.useState(0);
+
+  React.useEffect(() => {
+    const el = document.getElementById(gridId);
+    if (!el) return;
+    const onScroll = () => {
+      const cardWidth = el.scrollWidth / count;
+      setActive(Math.round(el.scrollLeft / cardWidth));
+    };
+    el.addEventListener("scroll", onScroll, { passive: true });
+    return () => el.removeEventListener("scroll", onScroll);
+  }, [count, gridId]);
+
+  return (
+    <div className="sv-dots">
+      {Array.from({ length: count }).map((_, i) => (
+        <div key={i} className={`sv-dot ${i === active ? "active" : ""}`} />
+      ))}
+    </div>
   );
 }
 
