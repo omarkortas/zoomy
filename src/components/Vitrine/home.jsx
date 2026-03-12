@@ -9,36 +9,10 @@ const BG_SVG = `
     </radialGradient>
   </defs>
   <rect width="800" height="700" fill="url(#glow)"/>
-  <polygon points="400,60 620,190 620,450 400,580 180,450 180,190"
-    fill="none" stroke="#999" stroke-width="1" opacity="0.2"/>
-  <polygon points="400,130 560,225 560,415 400,510 240,415 240,225"
-    fill="none" stroke="#aaa" stroke-width="0.8" opacity="0.15"/>
-  <polygon points="400,200 500,257 500,375 400,432 300,375 300,257"
-    fill="none" stroke="#bbb" stroke-width="0.6" opacity="0.12"/>
-  <line x1="400" y1="60" x2="400" y2="580" stroke="#888" stroke-width="0.7" opacity="0.12"/>
-  <line x1="180" y1="190" x2="620" y2="450" stroke="#888" stroke-width="0.7" opacity="0.1"/>
-  <line x1="620" y1="190" x2="180" y2="450" stroke="#888" stroke-width="0.7" opacity="0.1"/>
-  <line x1="400" y1="320" x2="0"   y2="0"   stroke="#777" stroke-width="0.5" opacity="0.07"/>
-  <line x1="400" y1="320" x2="800" y2="0"   stroke="#777" stroke-width="0.5" opacity="0.07"/>
-  <line x1="400" y1="320" x2="800" y2="700" stroke="#777" stroke-width="0.5" opacity="0.07"/>
-  <line x1="400" y1="320" x2="0"   y2="700" stroke="#777" stroke-width="0.5" opacity="0.07"/>
-  <circle cx="400" cy="320" r="100" fill="none" stroke="#999" stroke-width="0.6" opacity="0.1"/>
-  <circle cx="400" cy="320" r="170" fill="none" stroke="#999" stroke-width="0.6" opacity="0.08"/>
-  <circle cx="400" cy="320" r="240" fill="none" stroke="#999" stroke-width="0.5" opacity="0.06"/>
-  <circle cx="400" cy="320" r="320" fill="none" stroke="#999" stroke-width="0.5" opacity="0.04"/>
-  <circle cx="400" cy="60"  r="4" fill="#aaa" opacity="0.2"/>
-  <circle cx="620" cy="190" r="4" fill="#aaa" opacity="0.2"/>
-  <circle cx="620" cy="450" r="4" fill="#aaa" opacity="0.2"/>
-  <circle cx="400" cy="580" r="4" fill="#aaa" opacity="0.2"/>
-  <circle cx="180" cy="450" r="4" fill="#aaa" opacity="0.2"/>
-  <circle cx="180" cy="190" r="4" fill="#aaa" opacity="0.2"/>
+  <polygon points="400,60 620,190 620,450 400,580 180,450 180,190" fill="none" stroke="#999" stroke-width="1" opacity="0.2"/>
+  <polygon points="400,130 560,225 560,415 400,510 240,415 240,225" fill="none" stroke="#aaa" stroke-width="0.8" opacity="0.15"/>
+  <polygon points="400,200 500,257 500,375 400,432 300,375 300,257" fill="none" stroke="#bbb" stroke-width="0.6" opacity="0.12"/>
   <circle cx="400" cy="320" r="6" fill="#999" opacity="0.25"/>
-  <rect x="370" y="290" width="60" height="60"
-    fill="none" stroke="#888" stroke-width="0.8" opacity="0.12"
-    transform="rotate(15 400 320)"/>
-  <rect x="355" y="275" width="90" height="90"
-    fill="none" stroke="#888" stroke-width="0.6" opacity="0.08"
-    transform="rotate(30 400 320)"/>
 </svg>
 `;
 
@@ -52,11 +26,9 @@ function Home() {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Epilogue:wght@300;400;500&display=swap');
 
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        html, body { width: 100%; height: 100%; }
-
         .hero {
           min-height: 100vh;
+          width: 100%;
           background: #f7f5f2;
           display: flex;
           flex-direction: column;
@@ -64,9 +36,9 @@ function Home() {
           padding: 100px 10vw 60px;
           position: relative;
           overflow: hidden;
+          box-sizing: border-box;
         }
 
-        /* SVG geometric background */
         .hero-bg {
           position: absolute;
           inset: 0;
@@ -77,7 +49,6 @@ function Home() {
           background-repeat: no-repeat;
         }
 
-        /* Gradient mask */
         .hero-mask {
           position: absolute;
           inset: 0;
@@ -91,7 +62,6 @@ function Home() {
           );
         }
 
-        /* Left accent line */
         .hero::after {
           content: '';
           position: absolute;
@@ -103,12 +73,13 @@ function Home() {
           z-index: 2;
         }
 
-        /* Content */
         .hero-content {
           position: relative;
           z-index: 3;
           display: flex;
           flex-direction: column;
+          width: 100%;
+          max-width: 600px;
         }
 
         .hero-label {
@@ -155,6 +126,8 @@ function Home() {
           line-height: 1.85;
           margin-bottom: 52px;
           animation: fadeUp 0.5s 0.3s ease both;
+          word-wrap: break-word;
+          overflow-wrap: break-word;
         }
 
         .hero-cta {
@@ -175,6 +148,7 @@ function Home() {
           transition: background 0.2s;
           animation: fadeUp 0.5s 0.4s ease both;
           white-space: nowrap;
+          max-width: 100%;
         }
         .hero-cta:hover { background: #2a2a2a; }
         .hero-cta:hover .cta-arrow { transform: translateX(5px); }
@@ -189,13 +163,9 @@ function Home() {
           to   { width: 40px; opacity: 1; }
         }
 
-        /* =====================
-           TABLET (max 900px)
-        ===================== */
+        /* ── Tablet ── */
         @media (max-width: 900px) {
-          .hero {
-            padding: 100px 8vw 60px;
-          }
+          .hero { padding: 100px 8vw 60px; }
           .hero-bg {
             background-size: 80%;
             background-position: 100% 60%;
@@ -212,77 +182,74 @@ function Home() {
           }
         }
 
-        /* =====================
-           MOBILE (max 600px)
-        ===================== */
+        /* ── Mobile ── */
         @media (max-width: 600px) {
           .hero {
-            padding: 110px 6vw 60px;
+            padding: 90px 6vw 52px;
             justify-content: flex-start;
+            min-height: 100svh;
           }
 
-          /* SVG en fond centré, très atténué */
           .hero-bg {
-            background-size: 140%;
-            background-position: 50% 80%;
-            opacity: 0.35;
+            background-size: 130%;
+            background-position: 50% 90%;
+            opacity: 0.3;
           }
 
-          /* Masque full opaque pour lisibilité */
+          /* Masque vertical pour lisibilité */
           .hero-mask {
             background: linear-gradient(
               to bottom,
-              rgba(247,245,242,0.92) 0%,
-              rgba(247,245,242,0.75) 100%
+              rgba(247,245,242,0.95) 0%,
+              rgba(247,245,242,0.8) 100%
             );
           }
 
-          /* Ligne décorative cachée */
           .hero::after { display: none; }
 
+          .hero-content {
+            max-width: 100%;
+          }
+
           .hero-label {
-            font-size: 0.62rem;
-            letter-spacing: 2.5px;
-            margin-bottom: 24px;
-          }
-
-          .hero-title {
-            font-size: clamp(2.6rem, 11vw, 3.4rem);
-            letter-spacing: -1px;
-            margin-bottom: 28px;
-            line-height: 1.08;
-          }
-
-          .hero-line {
+            font-size: 0.6rem;
+            letter-spacing: 2px;
             margin-bottom: 20px;
           }
 
-          .hero-desc {
-            font-size: 0.9rem;
-            max-width: 100%;
-            margin-bottom: 40px;
-            line-height: 1.75;
+          .hero-title {
+            font-size: clamp(2.4rem, 10vw, 3.2rem);
+            letter-spacing: -0.5px;
+            margin-bottom: 24px;
+            line-height: 1.1;
           }
 
-          /* Bouton pleine largeur sur mobile */
+          .hero-line { margin-bottom: 18px; }
+
+          .hero-desc {
+            font-size: 0.88rem;
+            max-width: 100%;          /* ← fix texte coupé */
+            line-height: 1.75;
+            margin-bottom: 36px;
+            color: #777;
+          }
+
+          /* Bouton pleine largeur */
           .hero-cta {
             align-self: stretch;
             justify-content: center;
-            padding: 16px 24px;
-            font-size: 0.7rem;
+            padding: 16px 20px;
+            font-size: 0.68rem;
+            letter-spacing: 2px;
+            white-space: normal;    /* ← fix bouton qui déborde */
+            text-align: center;
           }
         }
 
-        /* =====================
-           TRÈS PETIT (max 360px)
-        ===================== */
+        /* ── Très petit ── */
         @media (max-width: 360px) {
-          .hero {
-            padding: 100px 5vw 48px;
-          }
-          .hero-title {
-            font-size: 2.3rem;
-          }
+          .hero { padding: 88px 5vw 44px; }
+          .hero-title { font-size: 2.2rem; }
         }
       `}</style>
 
