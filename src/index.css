@@ -50,3 +50,19 @@ img, svg, video {
   height: auto;
   display: block;
 }
+/* Force tout au bon comportement mobile */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+svg {
+  display: inline-block; /* react-icons s'affiche mieux ainsi */
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+/* Empêche Tailwind de casser les sections pleine largeur */
+section, main, header, footer, nav {
+  width: 100%;
+  max-width: 100%;
+}
