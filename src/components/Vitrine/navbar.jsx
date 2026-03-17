@@ -37,7 +37,6 @@ function Navbar() {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;500&display=swap');
 
-        /* Reset any browser default margin/padding on html and body */
         html, body {
           margin: 0 !important;
           padding: 0 !important;
@@ -63,6 +62,9 @@ function Navbar() {
           top: 0;
           left: 0;
           right: 0;
+          width: 100%;
+          max-width: 100vw;
+          box-sizing: border-box;
           margin: 0;
           z-index: 1000;
           height: 64px;
@@ -76,27 +78,21 @@ function Navbar() {
           backdrop-filter: blur(14px);
           -webkit-backdrop-filter: blur(14px);
           transition: border-color 0.3s, background 0.3s;
+          overflow: hidden;
         }
 
-        /* Logo */
-.nb-logo { 
-  height: 48px; 
-  width: auto;
-  max-width: 140px;   /* ← empêche le logo de déborder */
-  cursor: pointer; 
-  display: block; 
-}.nb {
-  /* déjà là : */
-  position: fixed;
-  /* ajoutez : */
-  width: 100%;
-  max-width: 100vw;
-  overflow: hidden;   /* ← bloque tout débordement dans la navbar */
-}        .nb-logo-light { display: none; }
+        .nb-logo {
+          height: 48px;
+          width: auto;
+          max-width: 140px;
+          cursor: pointer;
+          display: block;
+          flex-shrink: 0;
+        }
+        .nb-logo-light { display: none; }
         [data-theme="dark"] .nb-logo-dark  { display: none; }
         [data-theme="dark"] .nb-logo-light { display: block; }
 
-        /* Links */
         .nb-links {
           display: flex;
           align-items: center;
@@ -127,11 +123,11 @@ function Navbar() {
         .nb-links a:hover { color: var(--nav-text-hover); }
         .nb-links a:hover::after { width: 100%; }
 
-        /* Right */
         .nb-right {
           display: flex;
           align-items: center;
           gap: 20px;
+          flex-shrink: 0;
         }
 
         .nb-icon-btn {
@@ -229,7 +225,12 @@ function Navbar() {
 
         .nb-mobile {
           position: fixed;
-          top: 64px; left: 0; right: 0;
+          top: 64px;
+          left: 0;
+          right: 0;
+          width: 100%;
+          max-width: 100vw;
+          box-sizing: border-box;
           background: var(--nav-bg-scrolled);
           border-bottom: 1px solid var(--nav-border);
           backdrop-filter: blur(14px);
@@ -272,13 +273,11 @@ function Navbar() {
 
         <ul className="nb-links">
           <li><a href="#home">Home</a></li>
-              <li><a href="#services">Services</a></li>
-
+          <li><a href="#services">Services</a></li>
           <li><a href="#projects">Projects</a></li>
           <li><a href="#team">Team</a></li>
           <li><a href="#internship">Internships</a></li>
-                    <li><a href="#contact">Contact</a></li>
-
+          <li><a href="#contact">Contact</a></li>
         </ul>
 
         <div className="nb-right">
@@ -306,13 +305,11 @@ function Navbar() {
 
       <div className={`nb-mobile ${menuOpen ? "open" : ""}`}>
         <a href="#home" onClick={() => setMenuOpen(false)}>Home</a>
-                <a href="#services" onClick={() => setMenuOpen(false)}>Services</a>
-
+        <a href="#services" onClick={() => setMenuOpen(false)}>Services</a>
         <a href="#projects" onClick={() => setMenuOpen(false)}>Projects</a>
         <a href="#team" onClick={() => setMenuOpen(false)}>Team</a>
         <a href="#internship" onClick={() => setMenuOpen(false)}>Internships</a>
-                <a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a>
-
+        <a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a>
         {!user
           ? <a href="/signup" onClick={() => setMenuOpen(false)}>Register</a>
           : <a href="#" onClick={() => { Logout(); setMenuOpen(false); }}>Logout</a>
