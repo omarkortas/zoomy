@@ -1,7 +1,5 @@
 @import "tailwindcss";
-* {
-  outline: 1px solid red !important;
-}
+
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
