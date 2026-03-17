@@ -79,8 +79,20 @@ function Navbar() {
         }
 
         /* Logo */
-        .nb-logo { height: 48px; cursor: pointer; display: block; }
-        .nb-logo-light { display: none; }
+.nb-logo { 
+  height: 48px; 
+  width: auto;
+  max-width: 140px;   /* ← empêche le logo de déborder */
+  cursor: pointer; 
+  display: block; 
+}.nb {
+  /* déjà là : */
+  position: fixed;
+  /* ajoutez : */
+  width: 100%;
+  max-width: 100vw;
+  overflow: hidden;   /* ← bloque tout débordement dans la navbar */
+}        .nb-logo-light { display: none; }
         [data-theme="dark"] .nb-logo-dark  { display: none; }
         [data-theme="dark"] .nb-logo-light { display: block; }
 
